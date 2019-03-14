@@ -1,0 +1,65 @@
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  font-family: 'Courier New', Courier, monospace;
+  user-select: none;
+  /* position: fixed; */
+}
+
+#container, #mobile-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  z-index: 1;
+  position: relative;
+  pointer-events: none;
+}
+
+@media screen and (max-width: 1024px) {
+  #container {
+    display: none;
+  }
+}
+
+@media screen and (min-width: 1024.1px) {
+  #mobile-container {
+    display: none;
+  }
+}
+
+#phone-number {
+  /* position: absolute;
+  width: 100%;
+  text-align: center; */
+  line-height: 50px;
+  /* left: 0; */
+  /* top: calc((100% - 50px) / 2); */
+  font-size: 2em;
+  /* pointer-events: none */
+}
+
+#clear {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  font-size: 1.25em;
+  z-index: 1;
+}
+
+canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+h1, h2 {
+  margin: 7px 0;
+}
+
+h3 {
+  margin: 12px 0;
+}
