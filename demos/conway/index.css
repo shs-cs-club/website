@@ -8,6 +8,27 @@ html, body {
   display: block;
   margin: 0 auto;
   border: solid 1px black;
+  position: relative;
+  left: 350px;
+}
+
+.rules {
+  position: absolute;
+  top: 150px;
+  line-height: 2;
+  margin-left: 15px;
+  font-size: 1.1em;
+}
+
+.rules h1 {
+  text-align: center;
+  letter-spacing: .5px;
+  margin-bottom: 50px;
+}
+
+.rules h2 {
+  letter-spacing: .5px;
+  margin: 0 25px;
 }
 
 .options {
@@ -16,6 +37,8 @@ html, body {
   display: flex;
   justify-content: center;
   align-items: baseline;
+  position: relative;
+  left: 350px;
 }
 
 .options > * {
