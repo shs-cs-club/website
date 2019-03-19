@@ -1,0 +1,46 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: "Roboto", sans-serif;
+}
+
+#canvas {
+  display: block;
+  margin: 0 auto;
+  border: solid 1px black;
+}
+
+.options {
+  width: 80%;
+  margin: 10px auto;
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+}
+
+.options > * {
+  margin: 0 15px !important;
+}
+
+#initial-matrix {
+  display: block;
+  width: 90%;
+  margin: auto;
+  margin-top: 100px;
+}
+
+#clipboard {
+  width: 90%;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin: auto;
+  margin-bottom: 25px;
+}
+
+#generation {
+  padding: 10px;
+}
+
+
+

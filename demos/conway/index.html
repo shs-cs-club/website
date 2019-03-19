@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>repl.it</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link href="https://unpkg.com/material-components-web@0.24.0/dist/material-components-web.css" rel="stylesheet" type="text/css" />
+    <link href="index.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body onkeydown="keyDown(event)">
+    <div class="options">
+      <button class="mdc-button mdc-button--raised" onclick="blank()" data-mdc-auto-init="MDCRipple">
+        Clear
+      </button>
+      
+      <div class="mdc-textfield mdc-textfield--upgraded" data-mdc-auto-init="MDCTextfield">
+        <input type="number" id="probability" class="mdc-textfield__input" value="10" min="0" max="100" onchange="probabilityChange(this)">
+        <label class="mdc-textfield__label mdc-textfield__label--float-above" for="probability">
+          % filled
+        </label>
+        <div class="mdc-textfield__bottom-line"></div>
+      </div>
+      
+      <button class="mdc-button mdc-button--raised" onclick="clickRandom()" data-mdc-auto-init="MDCRipple">
+        Random
+      </button>
+
+      <div id="shape-select" class="mdc-select" role="listbox" tabindex="0" data-mdc-auto-init="MDCSelect">
+        <span class="mdc-select__selected-text">Point</span>
+        <div class="mdc-simple-menu mdc-select__menu">
+          <ul class="mdc-list mdc-simple-menu__items">
+            <li class="mdc-list-item" role="option" tabindex="0">Eraser 1x1</li>
+            <li class="mdc-list-item" role="option" tabindex="0">Eraser 5x5</li>
+            <li class="mdc-list-item" role="option" tabindex="0">Eraser 10x10</li>
+            <li class="mdc-list-item" role="option" tabindex="0" aria-selected>Point 1x1</li>
+            <li class="mdc-list-item" role="option" tabindex="0">Blinker 3x3</li>
+            <li class="mdc-list-item" role="option" tabindex="0">Glider 3x3</li>
+            <li class="mdc-list-item" role="option" tabindex="0">Pulsar 13x13</li>
+            <li class="mdc-list-item" role="option" tabindex="0">Pentadecathlon 9x16</li>
+            <li class="mdc-list-item" role="option" tabindex="0">Lightweight Spaceship 5x4</li>
+            <li class="mdc-list-item" role="option" tabindex="0">Schick Engine 20x11</li>
+            <li class="mdc-list-item" role="option" tabindex="0">Hivenudger 13x13</li>
+            <li class="mdc-list-item" role="option" tabindex="0">Gosper Glider Gun 36x9</li>
+            <li class="mdc-list-item" role="option" tabindex="0">Random #1 5x4</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div id="degree-select" class="mdc-select" role="listbox" tabindex="0" data-mdc-auto-init="MDCSelect">
+        <span class="mdc-select__selected-text">Point</span>
+        <div class="mdc-simple-menu mdc-select__menu">
+          <ul class="mdc-list mdc-simple-menu__items">
+            <li class="mdc-list-item" role="option" tabindex="0" aria-selected>0°</li>
+            <li class="mdc-list-item" role="option" tabindex="0">90°</li>
+            <li class="mdc-list-item" role="option" tabindex="0">180°</li>
+            <li class="mdc-list-item" role="option" tabindex="0">270°</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    
+    <canvas id="canvas" onclick="canvasClick(event, this)"></canvas>
+    
+    <div class="options">
+      <div class="mdc-textfield mdc-textfield--upgraded" data-mdc-auto-init="MDCTextfield">
+        <input type="number" id="size" class="mdc-textfield__input" value="100" min="1" max="200" onchange="sizeChange(this)">
+        <label class="mdc-textfield__label mdc-textfield__label--float-above" for="size">
+          size
+        </label>
+        <div class="mdc-textfield__bottom-line"></div>
+      </div>
+      
+      <div class="mdc-textfield mdc-textfield--upgraded" data-mdc-auto-init="MDCTextfield">
+        <input type="number" id="speed" class="mdc-textfield__input" value="600" min="1" max="6000" onchange="speedChange(this)">
+        <label class="mdc-textfield__label mdc-textfield__label--float-above" for="speed">
+          generations/min
+        </label>
+        <div class="mdc-textfield__bottom-line"></div>
+      </div>
+      
+      <div id="generation" class="mdc-card"></div>
+      
+      <button class="mdc-button mdc-button--raised" onclick="nextGeneration()" data-mdc-auto-init="MDCRipple">
+        Next
+      </button>
+      
+      <button class="mdc-button mdc-button--raised" onclick="reset()" data-mdc-auto-init="MDCRipple">
+        Reset
+      </button>
+      
+      <button id="start" class="mdc-button mdc-button--raised" onclick="startPausePlay(this)" data-mdc-auto-init="MDCRipple">
+        Start
+      </button>
+    </div>
+    
+    <textarea id="initial-matrix" rows="35" onclick="this.select()"></textarea>
+    
+    <div id="clipboard">
+      <button class="mdc-button mdc-button--raised" onclick="copyInitialMatrix()" data-mdc-auto-init="MDCRipple">
+        <i class="material-icons mdc-button__icon">content_copy</i>
+        Copy
+      </button>
+      <div>
+        <div class="mdc-textfield mdc-textfield--upgraded" data-mdc-auto-init="MDCTextfield">
+          <input type="number" id="apply-x" class="mdc-textfield__input" value="0" min="0" max="200">
+          <label class="mdc-textfield__label mdc-textfield__label--float-above" for="apply-x">
+            X
+          </label>
+          <div class="mdc-textfield__bottom-line"></div>
+        </div>
+        <div class="mdc-textfield mdc-textfield--upgraded" data-mdc-auto-init="MDCTextfield">
+          <input type="number" id="apply-y" class="mdc-textfield__input" value="0" min="0" max="200">
+          <label class="mdc-textfield__label mdc-textfield__label--float-above" for="apply-y">
+            Y
+          </label>
+          <div class="mdc-textfield__bottom-line"></div>
+        </div>
+        <button class="mdc-button mdc-button--raised" onclick="applyShape()" data-mdc-auto-init="MDCRipple">
+          Apply
+        </button>
+      </div>
+    </div>
+    
+    <script src="https://unpkg.com/material-components-web@0.24.0/dist/material-components-web.js"></script>
+    <script src="index.js"></script>
+  </body>
+</html>
